@@ -1,0 +1,12 @@
+.DS_Store
+.build/
+.swiftpm/
+Packages/
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+DerivedData/
+
+# Snapshot diffs are generated on failure — references (PNGs without `.diff`) are committed.
+**/__Snapshots__/**/*.diff.png
+**/__Snapshots__/**/*.failure.png
