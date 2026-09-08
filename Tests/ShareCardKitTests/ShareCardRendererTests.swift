@@ -44,6 +44,18 @@ struct ShareCardRendererTests {
         }
     }
 
+    @Test("ShareCardRenderer satisfies ShareCardRendering — existential dispatch matches direct calls")
+    func protocolSeamDispatch() async throws {
+        let renderer: any ShareCardRendering = ShareCardRenderer()
+        let image = try #require(
+            await renderer.render(MockShareableContent.canonical, size: .twitter)
+        )
+        #expect(image.variant == .twitter)
+
+        let set = await renderer.renderSocialSet(MockShareableContent.canonical)
+        #expect(Set(set.keys) == Set(ShareCardSize.socialSet))
+    }
+
     @Test("Custom scale flows through to the CGImage")
     func customScale() async throws {
         let renderer = ShareCardRenderer(scale: 2.0)

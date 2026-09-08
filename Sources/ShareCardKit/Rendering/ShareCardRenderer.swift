@@ -4,6 +4,11 @@
 //  Copyright © 2026 ShareCardKit. All rights reserved.
 //
 
+// Android: excluded — SwiftUI ImageRenderer capture + UIKit PNG/JPEG encoding, behind the
+// portable ShareCardRendering seam. Successor: server-side render adapter (primary) /
+// Compose bitmap bridge (fallback) behind ShareCardRendering, W5.6.
+#if !os(Android)
+
 import CoreGraphics
 import Foundation
 import SwiftUI
@@ -157,3 +162,11 @@ public final class ShareCardRenderer {
         }
     }
 }
+
+// MARK: - ShareCardRendering conformance
+
+/// The existing `ShareableContent`-generic methods witness the protocol
+/// exactly; the `View`-generic overloads stay concrete-only.
+extension ShareCardRenderer: ShareCardRendering {}
+
+#endif // !os(Android)
