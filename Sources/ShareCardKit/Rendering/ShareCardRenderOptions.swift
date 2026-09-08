@@ -4,7 +4,10 @@
 //  Copyright © 2026 ShareCardKit. All rights reserved.
 //
 
-import CoreGraphics
+// Foundation, not CoreGraphics: CG geometry values (CGFloat) come through
+// Foundation on every platform, including Android/corelibs where no CoreGraphics
+// module exists.
+import Foundation
 
 // MARK: - ShareCardRenderOptions
 

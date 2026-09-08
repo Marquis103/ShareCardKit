@@ -4,7 +4,12 @@ import PackageDescription
 let package = Package(
     name: "ShareCardKit",
     platforms: [
-        .iOS(.v17)
+        .iOS(.v17),
+        // Resolution-only floor for the Skip Android graph's macOS-26 host tooling:
+        // without it the implicit macOS 10.13 floor fails against
+        // swift-snapshot-testing's 10.15. The kit does not compile for macOS
+        // (UIKit/ImageRenderer paths) — accepted precedent (AyesCoreUI); iOS-neutral.
+        .macOS(.v14)
     ],
     products: [
         .library(

@@ -4,6 +4,11 @@
 //  Copyright © 2026 ShareCardKit. All rights reserved.
 //
 
+// Android: excluded — SwiftUI layout consumed by ShareCardRenderer's Darwin render path.
+// Successor: server-side render adapter (primary) / Compose bitmap bridge (fallback) behind
+// ShareCardRendering, W5.6.
+#if !os(Android)
+
 import SwiftUI
 
 // MARK: - TallShareCardLayout
@@ -100,3 +105,5 @@ struct TallShareCardLayout<Content: ShareableContent>: View {
         .padding(style.outerPadding)
     }
 }
+
+#endif // !os(Android)

@@ -5,7 +5,9 @@
 //
 
 import Foundation
+#if !os(Android)
 import SwiftUI
+#endif
 
 // MARK: - ShareableContent
 
@@ -58,9 +60,13 @@ public protocol ShareableContent: Sendable {
     /// will open. Hidden if `nil`.
     var footerURL: URL? { get }
 
+#if !os(Android)
     /// Optional accent color used for the badge pill and the title's
     /// emphasis underline. Defaults to neutral when `nil`.
+    /// Darwin-only — `SwiftUI.Color` does not exist on Android; the
+    /// W5.6 renderer successors take accent styling out-of-band.
     var accentColor: Color? { get }
+#endif
 
     /// App wordmark printed near the footer (and on the right rail in
     /// `.wide` layouts). Hidden if `nil`.
@@ -75,6 +81,8 @@ public extension ShareableContent {
     var statusLine: String? { nil }
     var breakdownSegments: [ShareableBreakdownSegment] { [] }
     var footerURL: URL? { nil }
+#if !os(Android)
     var accentColor: Color? { nil }
+#endif
     var wordmark: String? { nil }
 }

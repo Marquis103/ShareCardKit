@@ -4,7 +4,9 @@
 //  Copyright © 2026 ShareCardKit. All rights reserved.
 //
 
+#if !os(Android)
 import SwiftUI
+#endif
 
 // MARK: - ShareableBreakdownSegment
 
@@ -25,7 +27,10 @@ public struct ShareableBreakdownSegment: Sendable, Hashable, Identifiable {
     /// and is drawn as the chip count in chip-row layouts.
     public let count: Int
 
+#if !os(Android)
     /// Display color. Used as the chip background and bar segment fill.
+    /// Darwin-only (`SwiftUI.Color`); the W5.6 renderer successors color
+    /// segments out-of-band, keyed by segment `id`.
     public let color: Color
 
     public init(id: String, label: String, count: Int, color: Color) {
@@ -34,4 +39,11 @@ public struct ShareableBreakdownSegment: Sendable, Hashable, Identifiable {
         self.count = count
         self.color = color
     }
+#else
+    public init(id: String, label: String, count: Int) {
+        self.id = id
+        self.label = label
+        self.count = count
+    }
+#endif
 }
